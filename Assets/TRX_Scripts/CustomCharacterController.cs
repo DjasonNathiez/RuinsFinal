@@ -31,6 +31,7 @@ public class CustomCharacterController : MonoBehaviour
 
     [SerializeField] float acceleration = 0.0f;
     [SerializeField] float maxSpeed = 0.0f;
+    [SerializeField] float fallSpeed = 0.0f;
     [SerializeField] float jumpForce = 12.0f;
     [SerializeField] float jumpHForce = 4.0f;
     [SerializeField] float impulseHForce = 6.0f;
@@ -75,6 +76,7 @@ public class CustomCharacterController : MonoBehaviour
     {
         InputCheck();
         animator.SetFloat("Speed", Mathf.Abs(speedInfo));
+        ClampVelocity();
 
     }
     
@@ -88,7 +90,13 @@ public class CustomCharacterController : MonoBehaviour
     }
 
     // Méthodes
+    void ClampVelocity()
+    {
+        velocity = playerRigidbody.velocity;
+        velocity.y = Mathf.Clamp(velocity.y, -fallSpeed, velocity.y);
+        playerRigidbody.velocity = velocity;
 
+    }
     void InputCheck()
     {
 
@@ -304,8 +312,8 @@ public class CustomCharacterController : MonoBehaviour
     {
         //Setup des raycast pour mettre à jour le grounding
         int numHits = playerCollider.Cast(-Vector2.up, rGroundCast, 0.1f);
-        int wallHitsLeft = playerCollider.Raycast(Vector2.left, rWallCast, 0.9f, wallJumpLayer);
-        int wallHitsRight = playerCollider.Raycast(-Vector2.left, rWallCast, 0.9f, wallJumpLayer);
+        int wallHitsLeft = playerCollider.Raycast(Vector2.left, rWallCast, 1.4f, wallJumpLayer);
+        int wallHitsRight = playerCollider.Raycast(-Vector2.left, rWallCast, 1.4f, wallJumpLayer);
 
         //Grounding au sol
         if (numHits > 0)
