@@ -5,13 +5,14 @@ using UnityEngine;
 public class PlayerDeath : MonoBehaviour
 {
     private GameObject respawnPoint;
-    public GameObject currentPlayer;
+    private GameObject currentPlayer;
 
 
 
     void Start()
     {
         respawnPoint = GameObject.FindWithTag("Respawn");
+        currentPlayer = GameObject.Find("Character");
     }
 
     // Update is called once per frame
