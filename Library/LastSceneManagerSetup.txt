@@ -1,5 +1,9 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/TRX_Scenes/T_3.unity
+=======
+- path: Assets/_DN_Scenes/Zone_T0.unity
+>>>>>>> master
   isLoaded: 1
   isActive: 1
   isSubScene: 0

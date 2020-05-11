@@ -5,8 +5,14 @@ using Cinemachine;
 
 public class CameraControl : MonoBehaviour
 {
-   public GameObject CameraShort;
-   public GameObject CameraLarge;
+    GameObject CameraShort;
+    GameObject CameraLarge;
+
+    private void Awake()
+    {
+        CameraShort = GameObject.Find("CM ShortFOV");
+        CameraLarge = GameObject.Find("CM LargeFOV");
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("CameraEventShort"))
