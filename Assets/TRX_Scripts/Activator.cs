@@ -7,34 +7,38 @@ public class Activator : MonoBehaviour
     private GameObject player;
     private BoxCollider2D playerCollider;
     private CircleCollider2D activatorCollider;
-    private CustomCharacterController script;
+    bool activationInput;
     [Header("GameObjet associé")]
     [SerializeField] GameObject associatedObject = null;
-    [Header("PlaceHolders Graphs associés")]
-    [SerializeField] SpriteRenderer Graph1 = null;
-    [SerializeField] SpriteRenderer Graph2 = null;
-    [SerializeField] SpriteRenderer Graph3 = null;
-
-
 
     private void Start()
     {
         player = GameObject.Find("Character");
-        activatorCollider = GetComponent<CircleCollider2D>();
+        activatorCollider = gameObject.GetComponent<CircleCollider2D>();
         playerCollider = player.GetComponent<BoxCollider2D>();
-        script = player.GetComponent<CustomCharacterController>();
     }
 
     // Update is called once per frame
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+            activationInput = true;
+        else
+            activationInput = false;
+        
+    }
+
     private void FixedUpdate()
     {
-        if (player.GetComponent<CustomCharacterController>().jumpInput && playerCollider.IsTouching(activatorCollider))
+        Activation();
+    }
+
+    private void Activation()
+    {
+        if (activationInput && playerCollider.IsTouching(activatorCollider))
         {
             associatedObject.SetActive(true);
-            Graph1.enabled = false;
-            Graph2.enabled = false;
-            Graph3.enabled = false;
-
+            Debug.Log("Activation");
         }
     }
 }
